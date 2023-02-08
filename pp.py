@@ -150,11 +150,11 @@ class MKPP():
                 if stock['change'] != stock['change']:
                     if stock['latest'] != stock['latest']:
                         tickers.append('$'+stock['StockTicker'])
-                        changes.append("Closed ❌")
+                        changes.append("Closed❌")
                         allocations.append(f"*{stock['dayBeforeW']}%*")
                     else:
                         tickers.append('$'+stock['StockTicker'])
-                        changes.append("Opened ✅")
+                        changes.append("Opened✅")
                         allocations.append(f"{stock['latestW']}%")
 
                 # Change, accounted for inflow/outflows
@@ -165,9 +165,9 @@ class MKPP():
                     if abs(change) <= 0.05:
                         changes.append('---')
                     elif change > 0.05:
-                        changes.append(f"+{change}% 🟢")
+                        changes.append(f"+{change}%🟢")
                     elif change < -0.05:
-                        changes.append(f"{change}% 🔴")
+                        changes.append(f"{change}%🔴")
 
                     allocations.append(f"{stock['latestW']}%")
 
@@ -218,3 +218,15 @@ class MKPP():
             logging.critical("pp Error")
             logging.critical(e)
         
+    def rundemo(self):
+        """Demo data"""
+        tickers, changes, allocations, inflow = self.getUpdates()
+        
+        self.bot.dailyUpdate(
+            lastPrice=42.69, 
+            lastChange=-0.69, 
+            flow='+4.20',
+            tickers=tickers, 
+            changes=changes,
+            allocations=allocations,
+        )

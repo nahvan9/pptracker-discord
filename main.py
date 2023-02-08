@@ -54,3 +54,6 @@ if __name__ == "__main__":
         pp.run()
         logging.info("Sleeping")
         time.sleep(SLEEP)
+
+    # # Demo
+    # pp.rundemo()
