@@ -1,6 +1,7 @@
 import os
 import time
 import logging
+import json
 
 from dotenv import load_dotenv
 
@@ -9,20 +10,25 @@ from bot import PPBot
 
 load_dotenv()
 
-WEBHOOKURL = os.getenv('WEBHOOK')
+
 SLEEP = int(os.getenv('SLEEP'))
-UTC_OFFSET = time.timezone/3600
 
 DB_PATH = os.path.join(os.getcwd(), 'db')
 FILES = os.path.join(os.getcwd(), 'files')
 LOGS = os.path.join(os.getcwd(), 'logs')
-date = os.path.join(DB_PATH, 'date.txt')
+JSON = os.path.join(os.getcwd(), 'json')
+URL_PATHS = os.path.join(JSON, 'webhooks.json')
 
-paths = [DB_PATH, FILES, LOGS, date]
+paths = [DB_PATH, FILES, LOGS, JSON]
 
 for path in paths:
     if not os.path.exists(path):
         os.mkdir(path)
+
+if os.path.exists(URL_PATHS):
+    with open(URL_PATHS, 'r') as j:
+        URLS = json.load(j)
+
 
 logging.basicConfig(filename=os.path.join(LOGS, 'main.log'), format='%(asctime)s - %(levelname)s - %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S',
@@ -46,7 +52,7 @@ def cleanFiles():
 
 if __name__ == "__main__":
 
-    bot = PPBot(url=WEBHOOKURL, utc=UTC_OFFSET)
+    bot = PPBot(urls=URLS)
     pp = MKPP(DB_PATH, FILES, discordbot=bot)
     
     while True:

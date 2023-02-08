@@ -1,15 +1,13 @@
 import logging
 
-# from datetime import datetime
-# from datetime import timedelta
-
 from texttable import Texttable
 from discordwebhook import Discord
 
 class PPBot():
-    def __init__(self, url, utc):
-        self.bot = Discord(url=url)
-        self.time_offset = int(utc)
+    def __init__(self, urls):
+        self.urls = urls
+
+        self.bot = None
         self._dailyUpdate = None
         self._embedColor = None
 
@@ -23,9 +21,7 @@ class PPBot():
             
         self._data = self.createData(tickers, changes, allocations)
         self._table = self.createTable(self._data)
-        # time = self.getTime()
         self._dailyUpdate = [{
-            # "timestamp": time,
             "type": "rich",
             "title": "Meet Kevin\'s $PP Holdings",
             "description": f"**Last price: ${lastPrice} ({sign}{lastChange}%)**",
@@ -41,9 +37,17 @@ class PPBot():
                 "text": f"Inflow/Outflow: {flow}%"
             }
         }]
-        
-        self.bot.post(embeds=self._dailyUpdate)
-        logging.info("Embed sent. ")
+
+        self.sendMutliServer()
+        logging.info("All webhooks sent. ")
+
+    def sendMutliServer(self):
+        for url in self.urls:
+            self.bot = Discord(url=url)
+            logging.info(f"Sent Webhook {url}")
+            self.bot.post(embeds=self._dailyUpdate)
+
+            self.bot = None
 
     def getEmbedColor(self, priceChange):
         if priceChange < 0:
@@ -72,5 +76,3 @@ class PPBot():
 
         return data
     
-    # def getTime(self):
-    #     return str(datetime.now()+timedelta(hours=self.time_offset))
