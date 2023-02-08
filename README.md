@@ -5,5 +5,5 @@ Implements discord webhook to send daily updates of the etf holdings, stock chan
 
 ## Setup:
 ### .env file:  
-WEBHOOK=<Discord Webhook URL>  
-SLEEP=<Sleep time (s)>  
+WEBHOOK=\<WebhookURL>  
+SLEEP=\<Sleep time (s)>  
