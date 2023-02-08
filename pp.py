@@ -218,15 +218,15 @@ class MKPP():
             logging.critical("pp Error")
             logging.critical(e)
         
-    def rundemo(self):
-        """Demo data"""
-        tickers, changes, allocations, inflow = self.getUpdates()
+    # def rundemo(self):
+    #     """Demo data"""
+    #     tickers, changes, allocations, inflow = self.getUpdates()
         
-        self.bot.dailyUpdate(
-            lastPrice=42.69, 
-            lastChange=-0.69, 
-            flow='+4.20',
-            tickers=tickers, 
-            changes=changes,
-            allocations=allocations,
-        )
+    #     self.bot.dailyUpdate(
+    #         lastPrice=42.69, 
+    #         lastChange=-0.69, 
+    #         flow='+4.20',
+    #         tickers=tickers, 
+    #         changes=changes,
+    #         allocations=allocations,
+    #     )
