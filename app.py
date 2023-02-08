@@ -4,8 +4,8 @@ import logging
 
 from dotenv import load_dotenv
 
-from pp import MKPP
-from bot import PPBot
+from src.pp import MKPP
+from src.bot import PPBot
 
 load_dotenv()
 
