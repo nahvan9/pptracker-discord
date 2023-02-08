@@ -27,7 +27,6 @@ class MKPP():
         self.mcap = None
 
         self.initdb()
-        self.getChange()
 
 
     # Gets $PP price change at close compared to previous close price
