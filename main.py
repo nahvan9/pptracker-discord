@@ -16,9 +16,8 @@ UTC_OFFSET = time.timezone/3600
 DB_PATH = os.path.join(os.getcwd(), 'db')
 FILES = os.path.join(os.getcwd(), 'files')
 LOGS = os.path.join(os.getcwd(), 'logs')
-date = os.path.join(DB_PATH, 'date.txt')
 
-paths = [DB_PATH, FILES, LOGS, date]
+paths = [DB_PATH, FILES, LOGS]
 
 for path in paths:
     if not os.path.exists(path):
