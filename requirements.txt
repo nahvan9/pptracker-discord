@@ -1,0 +1,6 @@
+discordwebhook==1.0.3
+pandas==1.5.3
+python-dotenv==0.21.1
+requests==2.28.2
+texttable==1.6.7
+yfinance==0.2.10
