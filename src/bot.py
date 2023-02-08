@@ -21,7 +21,11 @@ class PPBot():
         else:
             sign = ''
             
-        self._data = self.createData(tickers, changes, allocations)
+        self._data, closed = self.createData(tickers, changes, allocations)
+        if closed:
+            note = '\n*%* Previous Allocation'
+        else:
+            note = ''
         self._table = self.createTable(self._data)
         # time = self.getTime()
         self._dailyUpdate = [{
@@ -38,7 +42,7 @@ class PPBot():
             "color": self._embedColor,
             "url": "https://www.mketf.com/",
             "footer": {
-                "text": f"Inflow/Outflow: {flow}%"
+                "text": f"Inflow/Outflow: {flow}%{note}"
             }
         }]
         
@@ -65,12 +69,15 @@ class PPBot():
         return table
 
     def createData(self, tickers, changes, allocations):
+        closed = False
         data = []
         size = len(tickers)
         for i in range(size):
+            if "Closed❌" in changes[i]:
+                closed = True
             data.append([tickers[i], allocations[i], changes[i]])
 
-        return data
+        return data, closed
     
     # def getTime(self):
     #     return str(datetime.now()+timedelta(hours=self.time_offset))
