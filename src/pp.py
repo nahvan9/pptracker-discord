@@ -151,11 +151,11 @@ class MKPP():
                     if stock['latest'] != stock['latest']:
                         tickers.append('$'+stock['StockTicker'])
                         changes.append("Closed❌")
-                        allocations.append(f"*{stock['dayBeforeW']}%*")
+                        allocations.append(f"*{'{per:.2f}'.format(per=stock['dayBeforeW'])}%*")
                     else:
                         tickers.append('$'+stock['StockTicker'])
                         changes.append("Opened✅")
-                        allocations.append(f"{stock['latestW']}%")
+                        allocations.append(f"{'{per:.2f}'.format(per=stock['latestW'])}%")
 
                 # Change, accounted for inflow/outflows
                 elif stock['change']:
@@ -165,17 +165,17 @@ class MKPP():
                     if abs(change) <= 0.05:
                         changes.append('---')
                     elif change > 0.05:
-                        changes.append(f"+{change}%🟢")
+                        changes.append(f"+{'{c:.2f}'.format(c=change)}%🟢")
                     elif change < -0.05:
-                        changes.append(f"{change}%🔴")
+                        changes.append(f"{'{c:.2f}'.format(c=change)}%🔴")
 
-                    allocations.append(f"{stock['latestW']}%")
+                    allocations.append(f"{'{per:.2f}'.format(per=stock['latestW'])}%")
 
                 # If no changes
                 else:
                     tickers.append('$'+stock['StockTicker'])
                     changes.append('---')
-                    allocations.append(f"{stock['latestW']}%")
+                    allocations.append(f"{'{per:.2f}'.format(per=stock['latestW'])}%")
 
             return tickers, changes, allocations, inflow
     
