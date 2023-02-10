@@ -199,7 +199,7 @@ class MKPP():
             currentDate = self.checkDate()
             prevDate = self.readDate()
             if  currentDate != prevDate:
-                # self.writeDate(currentDate)
+                self.writeDate(currentDate)
 
                 self.getPriceChange()
 
