@@ -14,11 +14,10 @@ class PPBot():
 
     def dailyUpdate(self, lastPrice, lastChange, flow, tickers, changes, allocations):
         self.getEmbedColor(lastChange)
-        if lastChange > 0: 
-            sign = '+'
-        else:
-            sign = ''
-            
+        
+        priceSign = self.plusMinus(lastChange)
+        flowSign = self.plusMinus(flow)
+
         self._data, closed = self.createData(tickers, changes, allocations)
         if closed:
             note = '\n*%* Previous Allocation'
@@ -28,7 +27,7 @@ class PPBot():
         self._dailyUpdate = [{
             "type": "rich",
             "title": "Meet Kevin\'s $PP Holdings",
-            "description": f"**Last price: ${lastPrice} ({sign}{lastChange}%)**",
+            "description": f"**Last price: ${'{:.2f}'.format(lastPrice)} ({priceSign}{'{:.2f}'.format(lastChange)}%)**",
             "fields": [
                 {
                     "name": "",
@@ -38,7 +37,7 @@ class PPBot():
             "color": self._embedColor,
             "url": "https://www.mketf.com/",
             "footer": {
-                "text": f"Inflow/Outflow: {flow}%{note}"
+                "text": f"Inflow/Outflow: {flowSign}{'{:.2f}'.format(flow)}%{note}"
             }
         }]
 
@@ -82,3 +81,9 @@ class PPBot():
             data.append([tickers[i], allocations[i], changes[i]])
 
         return data, closed
+    
+    def plusMinus(self, value):
+        if value > 0:
+            return '+'
+        else:
+            return ''
