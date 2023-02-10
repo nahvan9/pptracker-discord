@@ -32,9 +32,9 @@ class MKPP():
     # Gets $PP price change at close compared to previous close price
     def getPriceChange(self):
         prevClose = self.pp.fast_info['regularMarketPreviousClose']
+
         self.lastPrice = round(self.pp.fast_info['last_price'], 2)
-        self.priceChange = round(self.lastPrice-prevClose, 2)
-        # self.mcap = self.pp.fast_info['marketCap']
+        self.priceChange = round(float(self.lastPrice)-prevClose, 2)
 
     # Initiates sqlite db
     # https://github.com/rajsinghtech/pptracker 
@@ -181,15 +181,11 @@ class MKPP():
     
 
     def updateBot(self, tickers, changes, allocations, inflow):
-        if inflow > 0:
-            strInflow = f'+{round(inflow * 100, 2)}'
-        else:
-            strInflow = f'{round(inflow * 100, 2)}'
 
         self.bot.dailyUpdate(
             lastPrice=self.lastPrice, 
             lastChange=self.priceChange, 
-            flow=strInflow,
+            flow=inflow,
             tickers=tickers, 
             changes=changes,
             allocations=allocations,
@@ -217,6 +213,7 @@ class MKPP():
         except Exception as e:
             logging.critical("pp Error")
             logging.critical(e)
+            print(e)
         
     # def rundemo(self):
     #     """Demo data"""
