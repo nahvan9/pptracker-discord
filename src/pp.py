@@ -31,10 +31,13 @@ class MKPP():
 
     # Gets $PP price change at close compared to previous close price
     def getPriceChange(self):
-        prevClose = self.pp.fast_info['regularMarketPreviousClose']
+        if self.pp == None:
+            self.pp = yf.Ticker("PP")
+            prevClose = self.pp.fast_info['regularMarketPreviousClose']
 
-        self.lastPrice = round(self.pp.fast_info['last_price'], 2)
-        self.priceChange = round(float(self.lastPrice)-prevClose, 2)
+            self.lastPrice = round(self.pp.fast_info['last_price'], 2)
+            self.priceChange = round(float(self.lastPrice)-prevClose, 2)
+            self.pp = None
 
     # Initiates sqlite db
     # https://github.com/rajsinghtech/pptracker 
