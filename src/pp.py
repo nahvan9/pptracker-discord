@@ -37,7 +37,7 @@ class MKPP():
 
             self.lastPrice = round(self.pp.fast_info['last_price'], 2)
             self.priceChange = round(float(self.lastPrice)-prevClose, 2)
-            self.pp == None
+            self.pp = None
 
     # Initiates sqlite db
     # https://github.com/rajsinghtech/pptracker 
